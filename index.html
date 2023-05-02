@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>프라이머 만들기</title>
     <script>
+        var sol = new URLSearchParams(location.search).get("solution");
+        var ans = new URLSearchParams(location.search).get("answer");
+        if (sol && ans) {
+            var ansU = ans.toUpperCase();
+            if (sol == ansU) {
+                alert("정답입니다.") 
+            } else {
+                alert("오답입니다.") 
+            }
+        }
+
         var temp1 = 4 + Math.round( 4 * Math.random() );
         var temp2 = 4 + Math.round( 4 * Math.random() );
         var temp3 = 4 + Math.round( 4 * Math.random() );
@@ -18,7 +29,7 @@
             <a class="navbar-text" href="">@Developer</a>
         </div>
     </header>
-    <main class="container">
+    <main class="container" style="max-width: 48rem;">
         <div class="card mt-3 border-info">
             <div class="card-header bg-info ">
                 문제
@@ -26,7 +37,25 @@
             <div class="card-body" style="word-wrap: break-word;">
                 <span id="fivePrime">5'&#8209;</span><span id="frontForward" style="word-wrap: break-word;">1</span><strong id="forward" class="text-danger" style="word-wrap: break-word;">2</strong><span id="backForward">3</span>........<span id="frontBackward">4</span><strong id="backward" class="text-danger" style="word-wrap: break-word;">5</strong><span id="backBackward" style="word-wrap: break-word;">6</span><span id="threePrime">&#8209;3'</span>
             </div>
-            <div class="card-footer text-end">
+            <div class="card-footer">
+                <form method="get" id="formFwdP">
+                    <label for="fwdP" class="form-label">Forward Primer를 디자인하시오.</label>
+                    <div class="input-group">
+                        <input type="hidden" name="solution" id="sFwdP">
+                        <input type="text" class="form-control" id="fwdP" name="answer">
+                        <input type="submit" class="btn btn-info"></input>
+                    </div>
+                </form>
+                <form method="get" id="formBckP">
+                    <label for="backP" class="form-label">Backward Primer를 디자인하시오.</label>
+                    <div class="input-group">
+                        <input type="hidden" name="solution" id="sBackP">
+                        <input type="text" class="form-control" id="backP" name="answer">
+                        <input type="submit" class="btn btn-info"></input>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-end d-none">
                 <button id="newQ" class="btn btn-primary mr-auto" onclick="location.reload()" style="display: none;width: 8rem;">새로운 문제</button>
                 <button id="answerBtn" class="btn btn-info mr-auto" onclick="answer()" style="width: 8rem;">정답보기</button>
                 <div id="answerAlert" class="alert alert-info mt-2 mb-2 text-start" style="display: none;">
@@ -52,6 +81,9 @@
         if (tempPrime) {
             document.getElementById('fivePrime').style.display = "none";
             document.getElementById('threePrime').style.display = "none";
+            document.getElementById('formFwdP').style.display = "none";
+        } else {
+            document.getElementById('formBckP').style.display = "none";
         }
         function answer() {
             document.getElementById('answerAlert').style.display = "block";
@@ -177,6 +209,9 @@
         document.getElementById('frontBackward').innerText = base4;
         document.getElementById('backward').innerText = base5;
         document.getElementById('backBackward').innerText = base6;
+
+        document.getElementById('sFwdP').value = base2;
+        document.getElementById('sBackP').value = pol;
 
         document.getElementById('answerF').innerText = base2;
         document.getElementById('answerB').innerText = pol;
